@@ -42,7 +42,7 @@ class TestPihole(unittest.TestCase):
         mock = '127.0.0.1 api4.1mobile.com'
         got = self.urls.url_normalizer(mock)
 
-        expected = 'api4.1mobile.com'
+        expected = '\n\napi4.1mobile.com'
 
         self.assertEqual(got, expected)
 
@@ -50,7 +50,7 @@ class TestPihole(unittest.TestCase):
         mock = '# [1mobile.com]'
         got = self.urls.url_normalizer(mock)
 
-        expected = ''
+        expected = '\n'
 
         self.assertEqual(got, expected)
 
@@ -68,6 +68,9 @@ class TestPihole(unittest.TestCase):
         os.remove('tests/uniq.out')
 
     def test_cleanup(self):
+        os.environ['URL_FILE'] = 'tests/mock_endpoints.txt'
+        os.environ['BLOCKLIST_OUTPUT'] = 'tests/uniq.out'
+
         got = self.urls.cleanup()
 
         expected = False

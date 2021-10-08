@@ -49,19 +49,9 @@ class UrlList:
             pass
 
     def url_normalizer(self, blocklist):
-        regex = re.compile(
-                r'(?m)^#(.*)|'
-                r'(?m)^repo(.*)|'
-                r'(0.0.0.0)|'
-                r'(127.0.0.1)|'
-                r'(localhost)|'
-                r'((?m)@)|'
-                r'((?m)\:(.*))|'
-                r'(<br>)|'
-                r'(<BR>)|'
-                r'(\s\s)|'
-                r'( )|', re.IGNORECASE)
-        return re.sub(regex, '', blocklist)
+        regex = re.compile(r'\\s\\s|( )|((?m)\:(.*))|((?m)@)|(?m)^repo(.*)|(?m)^#(.*)|0.0.0.0|127.0.0.1|localhost|<br>|<BR>')
+
+        return re.sub(regex, '\\n', blocklist)
 
     def create_blocklist(self, blocklist):
         tmp = self.tmpfile
@@ -72,9 +62,6 @@ class UrlList:
         self.env_setup()
 
         lines_seen = set()
-
-        if os.path.exists(self.output):
-            os.remove(self.output)
 
         try:
             output_blocklist = open(self.output, 'x')
@@ -88,8 +75,13 @@ class UrlList:
             return "ENV BLOCKLIST_OUTPUT required!"
 
     def cleanup(self):
+        self.env_setup()
+
         if os.path.exists(self.tmpfile):
             os.remove(self.tmpfile)
+
+        if os.path.exists(self.output):
+            os.remove(self.output)
 
         f = open(self.tmpfile, "x")
         return f.closed
