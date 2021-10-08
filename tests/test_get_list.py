@@ -9,7 +9,7 @@ class TestPihole(unittest.TestCase):
         self.urls = pyholebot.UrlList()
 
     def test_endpoints_not_found(self):
-        os.environ['URL_FILE'] = '42/test_endpoints.txt'
+        os.environ['URL_FILE'] = '42/mock_endpoints.txt'
         got = self.urls.get_endpoints()
 
         expected = "Endpoint file not found!"
@@ -17,7 +17,7 @@ class TestPihole(unittest.TestCase):
         self.assertEqual(got, expected)
 
     def test_endpoints(self):
-        os.environ['URL_FILE'] = 'tests/test_endpoints.txt'
+        os.environ['URL_FILE'] = 'tests/mock_endpoints.txt'
         got = self.urls.get_endpoints()
 
         expected = ['https://example.com\n']
@@ -30,6 +30,61 @@ class TestPihole(unittest.TestCase):
         expected = 'Example Domain'
 
         self.assertRegex(got, expected)
+
+    def test_create_blocklist(self):
+        got = self.urls.create_blocklist('42')
+
+        expected = 2
+
+        self.assertEqual(got, expected)
+
+    def test_url_normalize_1(self):
+        mock = '127.0.0.1 api4.1mobile.com'
+        got = self.urls.url_normalizer(mock)
+
+        expected = 'api4.1mobile.com'
+
+        self.assertEqual(got, expected)
+
+    def test_url_normalize_2(self):
+        mock = '# [1mobile.com]'
+        got = self.urls.url_normalizer(mock)
+
+        expected = ''
+
+        self.assertEqual(got, expected)
+
+    def test_url_uniq(self):
+        os.environ['BLOCKLIST_OUTPUT'] = 'tests/uniq.out'
+        self.urls.tmpfile = 'tests/mock_uniq_test.txt'
+
+        self.urls.url_uniq()
+
+        f = open('tests/uniq.out', 'r')
+        got = f.readlines()
+        expected = ['example1.com.br\n', 'example3.com.br\n', 'example2.com.br\n']
+
+        self.assertEqual(got, expected)
+        os.remove('tests/uniq.out')
+
+    def test_cleanup(self):
+        got = self.urls.cleanup()
+
+        expected = False
+
+        self.assertEqual(got, expected)
+
+    def test_env_setup(self):
+        os.environ['URL_FILE'] = 'tests/mock_endpoints.txt'
+        os.environ['BLOCKLIST_OUTPUT'] = 'tests/uniq.out'
+
+        self.urls.env_setup()
+
+        endpoint = self.urls.endpoint
+        output = self.urls.output
+
+        self.assertEqual(endpoint, 'tests/mock_endpoints.txt')
+        self.assertEqual(output, 'tests/uniq.out')
 
 
 if __name__ == '__main__':
