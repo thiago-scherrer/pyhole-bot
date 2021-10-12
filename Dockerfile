@@ -1,7 +1,7 @@
 FROM python:3
 
 RUN useradd pyhole-bot \
-    && mkdir /home/pyhole-bot/.local \
+    && mkdir -p /home/pyhole-bot/.local \
     && chown pyhole-bot. /home/pyhole-bot -R
 
 USER pyhole-bot
