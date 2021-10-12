@@ -3,10 +3,8 @@ A simple python project to update pi-hole-block-list project
 
 ## Requirements
 
-- python >= 3.9.7
-- pip wheel
-- pyenv virtualenv
-- Internet to update
+- docker >= 20.10.9
+- docker-compose >= 2.0.1
 
 ## Running
 
@@ -16,33 +14,17 @@ Clone:
 git clone https://github.com/thiago-scherrer/pyhole-bot
 ```
 
-Enable virtualenv:
+Build:
 
 ```sh
-
 cd pyhole-bot
-pyenv activate venv_pyhole_bot
+docker-compose build
 ```
 
-Install requirements:
+Run:
 
 ```sh
-pip wheel -r requirements.txt
+docker-compose run
 ```
 
-Export envs:
-
-```sh
-
-# blocklist output destination
-export BLOCKLIST_OUTPUT='/path/output_blocklist.txt'
-
-# blocklist endpoint providers
-export URL_FILE='/path/endpoint_example.txt'
-```
-
-Run
-
-```sh
-python src/pyholebot/core.py
-```
+Blocklist output on `/tmp/blocklist.txt`

@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  pyhole-bot:
+    build: .
+    volumes:
+      - /tmp:/tmp
+    environment:
+      URL_FILE: "blocklist/blocklist.txt"
+      BLOCKLIST_OUTPUT: "/tmp/blocklist.txt"
