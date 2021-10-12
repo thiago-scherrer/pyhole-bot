@@ -1,12 +1,15 @@
 import os
 import re
+import tempfile
 import urllib.request
 
 
 class UrlList:
 
     def __init__(self):
-        self.tmpfile = '/tmp/pyhole_tmp_blocklist.txt'
+        tmpdir = tempfile.mkdtemp()
+        tmpf = 'pyhole_tmp_blocklist.txt'
+        self.tmpfile = os.path.join(tmpdir, tmpf)
         self.endpoint = None
         self.output = None
 
