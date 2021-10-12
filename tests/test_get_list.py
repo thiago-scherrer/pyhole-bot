@@ -55,21 +55,21 @@ class TestPihole(unittest.TestCase):
         self.assertEqual(got, expected)
 
     def test_url_uniq(self):
-        os.environ['BLOCKLIST_OUTPUT'] = 'tests/uniq.out'
+        os.environ['BLOCKLIST_OUTPUT'] = '/tmp/uniq.out'
         self.urls.tmpfile = 'tests/mock_uniq_test.txt'
 
         self.urls.url_uniq()
 
-        f = open('tests/uniq.out', 'r')
+        f = open('/tmp/uniq.out', 'r')
         got = f.readlines()
         expected = ['example1.com.br\n', 'example3.com.br\n', 'example2.com.br\n']
 
         self.assertEqual(got, expected)
-        os.remove('tests/uniq.out')
+        os.remove('/tmp/uniq.out')
 
     def test_cleanup(self):
         os.environ['URL_FILE'] = 'tests/mock_endpoints.txt'
-        os.environ['BLOCKLIST_OUTPUT'] = 'tests/uniq.out'
+        os.environ['BLOCKLIST_OUTPUT'] = '/tmp/uniq.out'
 
         got = self.urls.cleanup()
 
@@ -79,7 +79,7 @@ class TestPihole(unittest.TestCase):
 
     def test_env_setup(self):
         os.environ['URL_FILE'] = 'tests/mock_endpoints.txt'
-        os.environ['BLOCKLIST_OUTPUT'] = 'tests/uniq.out'
+        os.environ['BLOCKLIST_OUTPUT'] = '/tmp/uniq.out'
 
         self.urls.env_setup()
 
@@ -87,7 +87,7 @@ class TestPihole(unittest.TestCase):
         output = self.urls.output
 
         self.assertEqual(endpoint, 'tests/mock_endpoints.txt')
-        self.assertEqual(output, 'tests/uniq.out')
+        self.assertEqual(output, '/tmp/uniq.out')
 
 
 if __name__ == '__main__':

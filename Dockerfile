@@ -1,6 +1,6 @@
 FROM python:3
 
-RUN useradd pyhole-bot
+RUN useradd pyhole-bot && rm -rfv /home/pyhole-bot/.local
 
 USER pyhole-bot
 
