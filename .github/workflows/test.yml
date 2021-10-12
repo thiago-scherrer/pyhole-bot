@@ -20,3 +20,7 @@ jobs:
       name: Run build
       run: |
         docker-compose build
+    -
+      name: Run test
+      run: |
+        docker-compose run pyhole-bot python tests/test_get_list.py
