@@ -52,7 +52,8 @@ class UrlList:
             pass
 
     def url_normalizer(self, blocklist):
-        regex = re.compile(r'\\s\\s|( )|((?m)\:(.*))|((?m)@)|(?m)^repo(.*)|(?m)^#(.*)|0.0.0.0|127.0.0.1|localhost|<br>|<BR>')
+        regex = re.compile(
+            r'\\s\\s|( )|((?m)\:(.*))|((?m)@)|(?m)^repo(.*)|(?m)^#(.*)|0.0.0.0|127.0.0.1|localhost|<br>|<BR>')
 
         return re.sub(regex, '\\n', blocklist)
 
