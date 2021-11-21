@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.9.9
 
 RUN useradd pyhole-bot \
     && mkdir -p /home/pyhole-bot/.local \
