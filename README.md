@@ -35,3 +35,12 @@ docker-compose run
 ```
 
 Blocklist output on `/tmp/blocklist.txt`
+
+
+### add to pihole
+
+Go to `Adlist` and add a new list locally like this:
+
+```sh
+file:///tmp/gravity.list
+```
