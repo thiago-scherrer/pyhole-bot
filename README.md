@@ -1,12 +1,12 @@
 # pyhole-bot
 A simple python project to update pi-hole-block-list project
 
-## Requirements
+## requirements
 
 - docker >= 20.10.9
 - docker-compose >= 2.0.1
 
-## Running
+## running
 
 Clone:
 
@@ -37,7 +37,7 @@ docker-compose run
 Blocklist output on `/tmp/blocklist.txt`
 
 
-### add to pihole
+### using the list
 
 Go to `Adlist` and add a new list locally like this:
 
