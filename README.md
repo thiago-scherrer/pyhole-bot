@@ -1,6 +1,5 @@
 # pyhole-bot
-A simple python project to update pi-hole-block-list project
-
+A simple python project to update pihole block list
 ## requirements
 
 - docker >= 20.10.9
