@@ -1,5 +1,5 @@
 build==0.8.0
 packaging==21.0
 pep517==0.11.0
-pyparsing==2.4.7
+pyparsing==3.0.9
 tomli==2.0.1
