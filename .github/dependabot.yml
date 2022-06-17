@@ -12,7 +12,7 @@ updates:
     schedule:
       interval: "daily"
   -
-    package-ecosystem: "Docker"
+    package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "daily"
